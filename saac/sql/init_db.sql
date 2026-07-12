@@ -10,7 +10,7 @@
 -- 设置 root 密码 (若尚未设置, 或想改回 acserv.cf 中的密码)
 -- Ubuntu 24.04 的 mysql-server 默认 root 使用 auth_socket 插件
 -- (本机免密登录), 此处切换为 mysql_native_password 以匹配 saac 程序。
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Qq120848369';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'stoneage2025';
 FLUSH PRIVILEGES;
 
 -- 创建数据库 `sa`

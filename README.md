@@ -67,7 +67,7 @@ mysql -uroot -p < saac/sql/init_db.sql
 ```
 
 该脚本会:
-- 设置 root 密码为 `Qq120848369` (与 `saac/acserv.cf` 一致)
+- 设置 root 密码为 `stoneage2025` (与 `saac/acserv.cf` 一致)
 - 创建数据库 `sa`
 - 创建 `user_table` 表 (`Name`, `Pass`, `RegTime`, `Path`)
 - 创建 `user_lock` 表 (`Name`)
@@ -124,7 +124,7 @@ cd gmsv && ./gmsvjt.exe
 | `sql_IP` | 127.0.0.1 | MySQL 地址 |
 | `sql_Port` | 3306 | MySQL 端口 |
 | `sql_ID` | root | MySQL 用户名 |
-| `sql_PS` | Qq120848369 | MySQL 密码 |
+| `sql_PS` | stoneage2025 | MySQL 密码 |
 | `sql_DataBase` | sa | 数据库名 |
 | `sql_Table` | user_table | 用户信息表 |
 | `sql_LOCK` | user_lock | 用户锁定表 |
