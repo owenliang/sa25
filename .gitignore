@@ -1,1 +1,99 @@
+# ────────────────────────────────────────────────────────────
+# OS / Editor
+# ────────────────────────────────────────────────────────────
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# ────────────────────────────────────────────────────────────
+# 编译产物 (build artifacts)
+#   *.o / *.a      : object / static lib
+#   gmsvjt.exe     : gmsv 主程序 (本仓库构建产出)
+#   saacjt.exe     : saac 主程序 (本仓库构建产出)
+# ────────────────────────────────────────────────────────────
+*.o
+*.a
+/gmsv/gmsvjt.exe
+/saac/saacjt.exe
+
+# ────────────────────────────────────────────────────────────
+# 运行时生成的文件
+# ────────────────────────────────────────────────────────────
+# core dump
+core
+core.*
+
+# nohup 输出
+nohup.out
+
+# gmsv 运行期日志/错误文件
+/gmsv/*.err
+/gmsv/*.err1
+/gmsv/*.err2
+/gmsv/gmsvlog*
+/gmsv/a.txt
+
+# saac 运行期日志/错误文件
+/saac/*.err
+/saac/saaclog*
+
+# ────────────────────────────────────────────────────────────
+# saac 运行时数据目录 (程序启动时自动创建 0x00-0xff 子目录及数据文件)
+# 仅保留目录结构与必须的配置/模板文件
+# ────────────────────────────────────────────────────────────
+
+# char/ — 玩家存档 (prepareDirectories 自动创建 256 子目录, 运行时写入)
+/saac/char/*
+!/saac/char/.gitkeep
+
+# log/ — 操作日志 (prepareDirectories 自动创建 256 子目录, 运行时写入)
+/saac/log/*
+!/saac/log/.gitkeep
+
+# mail/ — 宠物邮件 (readMail 自动创建 256 子目录, mail_id 自动重建为 10000)
+/saac/mail/*
+!/saac/mail/.gitkeep
+
+# data/family/ — 家族档案 (readFamily 自动 mkdir, writeFamily 运行时写入)
+/saac/data/family/*
+!/saac/data/family/.gitkeep
+
+# data/fmsmemodir/ — 家族之爱留言 (readFMSMemo 自动 mkdir, 运行时写入)
+/saac/data/fmsmemodir/*
+!/saac/data/fmsmemodir/.gitkeep
+# 注意: data/fmpointdir/db_fmpoint 是庄园据点配置, 必须保留(不被忽略)
+
+# db/int/ — 整型键值表 (dbRead 自动 mkdir, dbFlush 运行时写入)
+/saac/db/int/*
+!/saac/db/int/.gitkeep
+
+# db/string/ — 字符串键值表 (dbRead 自动 mkdir, dbFlush 运行时写入)
+/saac/db/string/*
+!/saac/db/string/.gitkeep
+# 注意: db/herolist/db_herolist.txt 是英雄榜模板, 必须保留(不被忽略)
+
+# ────────────────────────────────────────────────────────────
+# 备份 / 历史遗留文件 (已从仓库删除, 防止再次提交)
+# ────────────────────────────────────────────────────────────
+*.bak
+*.zip
+*.scc
+*.orig
+*.rej
+*.tmp
+
+# Windows 原版二进制 (对 Linux 编译无用)
+saac/saacjt20.exe
+
+# strace/ltrace 调试输出
+debug
+
+# ar 归档碎片
+gmsv/battle/stoRkxhg
+
+# 宠物数据错误日志 (程序用 fopen("a+") 自动创建)
+badpetstring.txt

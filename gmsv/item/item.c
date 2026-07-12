@@ -191,7 +191,7 @@ static ITEM_intDataSetting ITEM_setintdata[ITEM_DATAINTNUM]={
 	{"arr",  0},					/*ITEM_MODIFYARRANGE*/
 	{"seqce",  0},					//ITEM_MODIFYSEQUENCE,
 	{"iapi", 0},					//ITEM_ATTACHPILE
-	{"hirt", 0},					//ITEM_HITRIGHT		//¶îÍâÃüÖÐ
+	{"hirt", 0},					//ITEM_HITRIGHT		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #endif
 
 #ifdef _ITEMSET6_TXT
@@ -453,7 +453,7 @@ BOOL ITEM_initExistItemsArray( int num )
 		memset( &ITEM_item[i], 0 , sizeof( ITEM_exists ));
 		ITEM_item[i].use = FALSE;
 	}
-	print("µÚ¶þ´Î·ÖÅä %4.2f MB ¿Õ¼ä...", sizeof( ITEM_exists ) * num /1024.0/1024.0);
+	print("ï¿½Ú¶ï¿½ï¿½Î·ï¿½ï¿½ï¿½ %4.2f MB ï¿½Õ¼ï¿½...", sizeof( ITEM_exists ) * num /1024.0/1024.0);
 	return TRUE;
 }
 
@@ -515,7 +515,7 @@ int _ITEM_initExistItemsOne( char *file, int line, ITEM_Item* itm )
 			return Sindex;
 		}
 	}
-	fprint( "ÎïÆ·ÒÑÂú\n" );
+	fprint( "ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\n" );
 	return -1;
 }
 
@@ -663,7 +663,7 @@ void* ITEM_getFunctionPointer( int itemindex, int functype )
 {
 	if( !ITEM_CHECKINDEX(itemindex) )return NULL;
 	if( functype < ITEM_FIRSTFUNCTION  || functype >= ITEM_LASTFUNCTION ){
-		print( "ÀàÐÍ´íÎó:%d\n", functype);
+		print( "ï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½:%d\n", functype);
 		return NULL;
 	}
 	return ITEM_item[itemindex].itm.
@@ -1014,7 +1014,7 @@ BOOL ITEM_readItemConfFile( char* filename )
 
 	f = fopen(filename,"r");
 	if( f == NULL ){
-		print( "²»ÄÜ´ò¿ªÎÄ¼þ\n");
+		print( "ï¿½ï¿½ï¿½Ü´ï¿½ï¿½Ä¼ï¿½\n");
 		return FALSE;
 	}
 #ifdef _ITEMSET2_ITEM
@@ -1036,7 +1036,7 @@ BOOL ITEM_readItemConfFile( char* filename )
 
 		ret = getStringFromIndexWithDelim( line, ",", ITEM_ID_TOKEN_INDEX, token, sizeof(token));
 		if( ret == FALSE ){
-			fprint("ÎÄ¼þÖÈÐò´íÎó:%s µÚ:%dÐÐ\n",filename,linenum);
+			fprint("ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:%s ï¿½ï¿½:%dï¿½ï¿½\n",filename,linenum);
 			continue;
 		}
 		itemid = atoi( token);
@@ -1047,17 +1047,17 @@ BOOL ITEM_readItemConfFile( char* filename )
 	}
 
 	if( maxid <=0 ) {
-		print( "×î´óID´íÎó\n");
+		print( "ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½\n");
 		fclose(f);
 		return FALSE;
 	}
 	
 	if( fseek( f, 0, SEEK_SET ) == -1 ){
-		fprint( "ËÑË÷´íÎó\n" );
+		fprint( "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n" );
 		fclose(f);
 		return FALSE;
 	}
-	print( "ÎïÆ·×î´óID %d...", maxid);
+	print( "ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ID %d...", maxid);
 	ITEM_tblen = itemnum + 1;
 	ITEM_idxlen = maxid + 1;
 	if( ITEM_tbl != NULL )
@@ -1068,17 +1068,17 @@ BOOL ITEM_readItemConfFile( char* filename )
 	ITEM_idx = allocateMemory( sizeof(ITEM_index) * ITEM_idxlen );
 
 	if( ITEM_tbl == NULL ){
-		fprint( "ÎÞ·¨·ÖÅäÄÚ´æ %d\n" , sizeof(ITEM_table)*ITEM_tblen );
+		fprint( "ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ %d\n" , sizeof(ITEM_table)*ITEM_tblen );
 		fclose( f );
 		return FALSE;
 	}
 	if( ITEM_idx == NULL ){
-		fprint( "ÎÞ·¨·ÖÅäÄÚ´æ %d\n" , sizeof(ITEM_index)*ITEM_idxlen );
+		fprint( "ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ %d\n" , sizeof(ITEM_index)*ITEM_idxlen );
 		fclose( f );
 		return FALSE;
 	}
-	print("ITEM_tbl·ÖÅä %4.2f MB ¿Õ¼ä...", sizeof(ITEM_table) * ITEM_tblen /1024.0/1024.0);
-	print("ITEM_idx·ÖÅä %4.2f MB ¿Õ¼ä...", sizeof(ITEM_index) * ITEM_idxlen /1024.0/1024.0);
+	print("ITEM_tblï¿½ï¿½ï¿½ï¿½ %4.2f MB ï¿½Õ¼ï¿½...", sizeof(ITEM_table) * ITEM_tblen /1024.0/1024.0);
+	print("ITEM_idxï¿½ï¿½ï¿½ï¿½ %4.2f MB ï¿½Õ¼ï¿½...", sizeof(ITEM_index) * ITEM_idxlen /1024.0/1024.0);
 	
 	for( i = 0 ; i < ITEM_idxlen ; i ++ ) {
 		ITEM_idx[i].use = FALSE;
@@ -1093,7 +1093,7 @@ BOOL ITEM_readItemConfFile( char* filename )
 		replaceString( line, '\t' , ' ' );
 		itemnum ++;
 {
-		char    buf[256];
+		char    buf[ sizeof(line) ];
 		for( i = 0; i < strlen( line); i ++) {
 			if( line[i] != ' ' ) {
 				break;
@@ -1398,7 +1398,7 @@ void ITEM_equipEffect( int index )
 		{ ITEM_MODIFYDEFENCE,	CHAR_WORKDEFENCEPOWER,	-100,	0,	EQUIP_FIX_MAX,	0},
 		{ ITEM_MODIFYQUICK,		CHAR_WORKQUICK,			-100,	0,	EQUIP_FIX_MAX,	0},
 		{ ITEM_MODIFYHP,		CHAR_WORKMAXHP,			0,	0,	EQUIP_FIX_MAX,	0},
-		{ ITEM_MODIFYMP,        CHAR_WORKMAXMP,			0,	0,	1000,	0}, // MP ·´100ÒýÆ¥
+		{ ITEM_MODIFYMP,        CHAR_WORKMAXMP,			0,	0,	1000,	0}, // MP ï¿½ï¿½100ï¿½ï¿½Æ¥
 
 		{ ITEM_MODIFYLUCK,       CHAR_WORKFIXLUCK,	0,	1,	5,	0},
 		{ ITEM_MODIFYCHARM,      CHAR_WORKFIXCHARM,	0,	0,	100,	0},
@@ -1525,7 +1525,7 @@ void Other_DefcharWorkInt( int index)
 #endif//_SUIT_ITEM
 #ifdef _PETSKILL_SETDUCK
 	//profession fix
-	//Ê¹ÓÃ»Ø±ÜÕÐÊ½Ê±,»á½«·ÀÖµ¼õÈ¥30%È»ááÉè¶¨³É»Ø±ÜÖµ,Ææ¹ÖµÄÉè¶¨,Ò²Ôì³ÉÔ­±¾Éè¶¨µÄ»Ø±ÜÖµ¸úÃ»ÉèÒ»Ñù,Òò´ËÎÒ(Change)ÏÈ°ÑÕû¶ÎÄÃµô
+	//Ê¹ï¿½Ã»Ø±ï¿½ï¿½ï¿½Ê½Ê±,ï¿½á½«ï¿½ï¿½Öµï¿½ï¿½È¥30%È»ï¿½ï¿½ï¿½è¶¨ï¿½É»Ø±ï¿½Öµ,ï¿½ï¿½Öµï¿½ï¿½è¶¨,Ò²ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½è¶¨ï¿½Ä»Ø±ï¿½Öµï¿½ï¿½Ã»ï¿½ï¿½Ò»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½(Change)ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
 	/*if( CHAR_getWorkInt( index, CHAR_MYSKILLDUCK) > 0 ){
 		int mtgh = CHAR_getWorkInt( index, CHAR_WORKFIXTOUGH);
 		mtgh -= (mtgh*30)/100;
@@ -1583,7 +1583,7 @@ void Other_DefcharWorkInt( int index)
             CHAR_setWorkInt( index, CHAR_WORKWEAKEN, CHAR_getWorkInt( index, CHAR_WORKWEAKEN)-1);
 	}
 #endif
-#ifdef _MAGIC_BARRIER// vincent  ¾«Áé:Ä§ÕÏ
+#ifdef _MAGIC_BARRIER// vincent  ï¿½ï¿½ï¿½ï¿½:Ä§ï¿½ï¿½
 	if( CHAR_getWorkInt( index, CHAR_WORKBARRIER) > 0){
             CHAR_setWorkInt( index, CHAR_WORKBARRIER, CHAR_getWorkInt( index, CHAR_WORKBARRIER) - 1);
 	}
@@ -1685,13 +1685,13 @@ int ITEM_isTargetValid( int charaindex, int itemindex, int toindex)
 	Myside = CHAR_getWorkInt( charaindex, CHAR_WORKBATTLESIDE );
 	if ((toindex >= 0x0) && (toindex <= 0x13)) return 0;
 
-	if (toindex == 0x14) {//20 ÓÒÏÂÈ« 0
+	if (toindex == 0x14) {//20 ï¿½ï¿½ï¿½ï¿½È« 0
 		if (itemtarget == ITEM_TARGET_ALLMYSIDE){
 			if( Myside == 0 )return 0;
 		}else if(itemtarget == ITEM_TARGET_ALLOTHERSIDE ){
 			if( Myside == 1 )return 0;
 		}
-	}else if (toindex == 0x15) {//21 ×óÉÏÈ« 1
+	}else if (toindex == 0x15) {//21 ï¿½ï¿½ï¿½ï¿½È« 1
 		if (itemtarget == ITEM_TARGET_ALLMYSIDE){
 			if( Myside == 1 )return 0;
 		}else if( itemtarget == ITEM_TARGET_ALLOTHERSIDE ){
@@ -1719,7 +1719,7 @@ BOOL CHAR_CheckInItemForWares( int charaindex, int flg)
 			if( flg == 0 ){
 				return FALSE;
 			}
-			sprintf(token,"½»³ö%s",ITEM_getChar( itemindex, ITEM_NAME));
+			sprintf(token,"ï¿½ï¿½ï¿½ï¿½%s",ITEM_getChar( itemindex, ITEM_NAME));
 			CHAR_talkToCli( charaindex, -1, token, CHAR_COLORYELLOW);
 
 			CHAR_setItemIndex( charaindex, i ,-1);

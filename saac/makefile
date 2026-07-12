@@ -16,16 +16,27 @@ export SHELL=/bin/sh
 
 INCFLAGS=-I. -I./include
 
-CFLAGS=-O3 -w $(INCFLAGS)
+# 32-bit cross compile on 64-bit host: original code targets 32-bit only.
+# -m32           : produce 32-bit binaries (preserves int/pointer size assumptions)
+# -fcommon        : restore legacy "common" symbol semantics (newer gcc defaults to -fno-common)
+# -fgnu89-inline  : use gnu89 inline semantics so INLINE functions are emitted as
+#                   external symbols (code predates C99 inline rules)
+# -U_FORTIFY_SOURCE / -D_FORTIFY_SOURCE=0 : disable glibc fortify-source object-size
+#                   checks; original 32-bit toolchain lacked these and the legacy code
+#                   performs small-buffer sprintf/snprintf that would otherwise abort.
+ARCHFLAGS=-m32 -fcommon -fgnu89-inline -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0
+LINKFLAGS=-no-pie
+
+CFLAGS=-O3 -w $(ARCHFLAGS) $(INCFLAGS)
 #Pentium 4 (Intel)
 #CFLAGS=-march=pentium4 -O3 -pipe -fomit-frame-pointer $(INCFLAGS)
 #Athlon XP (AMD)
 #CFLAGS="-march=athlon-xp -O3 -pipe -fomit-frame-pointer" $(INCFLAGS)
-#Athlon64£º
+#Athlon64ï¿½ï¿½
 #CFLAGS="-O2 -march=athlon64 -ftracer -fprefetch-loop-arrays -pipe" $(INCFLAGS)
 
-#¼ÓÈëmysql×ÊÁÏ¿â¹¦ÄÜ¯à
-MYSQL= -lz -L/usr/lib64/mysql -lmysqlclient
+#ï¿½ï¿½ï¿½ï¿½mysqlï¿½ï¿½ï¿½Ï¿â¹¦ï¿½Ü¯ï¿½
+MYSQL= -lz -L/usr/lib/i386-linux-gnu -lmysqlclient
 
 TOP=../..
 PROG = ./saacjt.exe
@@ -40,14 +51,14 @@ RPCSRC = saacproto_serv.c saacproto_util.c
 RPCINCLUDE = saacproto_serv.h saacproto_util.h mac.h
 RPCNOUSE = saacproto_cli.c saacproto_cli.h
 
-#¼ÓÈëmysql×ÊÁÏ¿â¹¦ÄÜ¥\¯à
+#ï¿½ï¿½ï¿½ï¿½mysqlï¿½ï¿½ï¿½Ï¿â¹¦ï¿½Ü¥\ï¿½ï¿½
 SRC = main.c recv.c util.c char.c db.c mail.c acfamily.c lock.c sasql.c $(RPCSRC)
 #SRC = main.c recv.c util.c char.c db.c mail.c acfamily.c lock.c $(RPCSRC)
 
 OBJ=$(SRC:.c=.o)
 
 ${PROG} : $(RPCSRC) $(OBJ)
-	$(CC) $(CFLAGS) -o $(PROG) $(OBJ) $(MYSQL)
+	$(CC) $(CFLAGS) $(LINKFLAGS) -o $(PROG) $(OBJ) $(MYSQL)
 
 dos2unix:
 	dos2unix $(SRC) ./include/*.h makefile

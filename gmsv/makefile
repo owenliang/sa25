@@ -7,13 +7,27 @@ export SED=sed
 
 
 export SHELL=/bin/sh
+export ARCHFLAGS
 
 # USE_MITO 反穴伙民旦伊永玉IO毛银丹方丹卞允月＄1¤7indy匹戊件由奶伙允月午五叄1¤7
 # pthread 反骚日卅中及匹｝仇木毛反内仄化pthread 手反内允仇午
 
 INCFLAGS=-I. -I./include
 
-CFLAGS=-O3 -w $(INCFLAGS)
+# 32-bit cross compile on 64-bit host: original code targets 32-bit only.
+# -m32           : produce 32-bit binaries (preserves int/pointer size assumptions)
+# -fcommon        : restore legacy "common" symbol semantics (newer gcc defaults to -fno-common)
+# -fgnu89-inline  : use gnu89 inline semantics so INLINE functions are emitted as
+#                   external symbols (code predates C99 inline rules)
+# -U_FORTIFY_SOURCE / -D_FORTIFY_SOURCE=0 : disable glibc fortify-source object-size
+#                   checks; original 32-bit toolchain lacked these and the legacy code
+#                   performs small-buffer sprintf/snprintf that would otherwise abort.
+# -no-pie         : produce a non-PIE executable (matches original 32-bit build; legacy
+#                   code makes absolute-address assumptions incompatible with PIE).
+ARCHFLAGS=-m32 -fcommon -fgnu89-inline -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0
+LINKFLAGS=-no-pie
+
+CFLAGS=-O3 -w $(ARCHFLAGS) $(INCFLAGS)
 #Pentium 4 (Intel)
 #CFLAGS=-march=pentium4 -O3 -pipe -fomit-frame-pointer $(INCFLAGS)
 #Athlon XP (AMD)
@@ -70,7 +84,7 @@ $(CLIRPCSRC) $(SERVRPCSRC)
 OBJ=$(SRC:.c=.o)
 
 
-LDFLAGS=-lm -lpthread
+LDFLAGS=-lm -lpthread $(ARCHFLAGS)
 #LDFLAGS=-lm
 
 
@@ -87,7 +101,7 @@ endif
 all: $(PROG)
 
 $(PROG):  $(RPCSRC) $(ANIMDATAFILE) $(LIBS) $(OBJ) 
-	$(CC) $(CFLAGS) -o $(PROG) $(OBJ) $(LIBS) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(LINKFLAGS) -o $(PROG) $(OBJ) $(LIBS) $(LDFLAGS)
 
 dos2unix:
 	@for dir in $(SUBDIR) ; do \

@@ -10,12 +10,12 @@ export SHELL=/bin/sh
 
 INCFLAGS=-I. -I.. -I../include
 
-CFLAGS=-O3 -w $(INCFLAGS) 
+CFLAGS=-O3 -w $(ARCHFLAGS) $(INCFLAGS)
 #Pentium 4 (Intel)
 #CFLAGS=-march=pentium4 -O3 -pipe -fomit-frame-pointer $(INCFLAGS)
 #Athlon XP (AMD)
 #CFLAGS="-march=athlon-xp -O3 -pipe -fomit-frame-pointer" $(INCFLAGS)
-#Athlon64£º
+#Athlon64ï¿½ï¿½
 #CFLAGS="-O2 -march=athlon64 -ftracer -fprefetch-loop-arrays -pipe" $(INCFLAGS)
 
 PROG=libchar.a
